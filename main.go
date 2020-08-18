@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/arielril/basic-go-gl/game"
 	"github.com/arielril/basic-go-gl/opengl"
+	"github.com/arielril/basic-go-gl/program"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -28,17 +28,17 @@ func init() {
 }
 
 func main() {
-	win, _ := opengl.NewWindow(wWidth, wHeight, "Space Invaders")
+	win, _ := opengl.NewWindow(wWidth, wHeight, "Polygon Point Inclusion")
 	defer glfw.Terminate()
 
 	win.SetKeyCallback(opengl.KeyCallback)
 	win.SetCharCallback(opengl.CharCallback)
 
 	opengl.Setup()
-	game.Init()
+	program.Init()
 	for !win.ShouldClose() {
 		opengl.Reshape(win)
-		game.Display(win)
+		program.Display(win)
 
 		win.SwapBuffers()
 		glfw.PollEvents()

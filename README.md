@@ -1,6 +1,8 @@
-# Basic Golang OpenGL example
+# Polygon Point Inclusion
 
 This project uses [Go-Gl](https://github.com/go-gl/gl) to create a scene with OpenGL and play with it.
+
+This is a repository for a Graphical Computer Class assignment about polygon point inclusion. You can access the assignment [here](https://www.inf.pucrs.br/pinho/CG/Trabalhos/T1-2020-2-Poligonos/T1-2020-2.html).
 
 ## Dependencies
 This package uses [go modules](https://github.com/golang/go/wiki/Modules). Whenever you run `go build` or `go test` all dependencies will be downloaded automatically. See [go.mod](./go.mod) and [go.sum](go.sum) to see all modules used by this package.
@@ -15,9 +17,10 @@ To execute this example program you can use the `make run` command, it will buil
 
 - `make run`: build and run the program
 - `make`: will build all the files needed
+- `make clean`: will remove all files from the build
 
 ## Result
 
-When running this example program, the program will create an white window and present 2 squares (cars) with spinning sirens (X). One car is blue and the other is red.
+TBD.
 
 You can press `q` or `ESC` to quit the program.

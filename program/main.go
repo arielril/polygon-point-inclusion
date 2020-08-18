@@ -1,4 +1,4 @@
-package game
+package program
 
 import (
 	"fmt"
@@ -17,4 +17,5 @@ func Init() {
 // Display the game
 func Display(w *glfw.Window) {
 	displayFps()
+	displayLine()
 }
