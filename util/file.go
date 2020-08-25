@@ -7,12 +7,15 @@ import (
 	"strings"
 )
 
+// ParsedFile is the type of the parsed file information
+type ParsedFile [][]float32
+
 const coordinatesDivisor = ";"
 
-func createDataObject(data string) [][]int {
+func createDataObject(data string) ParsedFile {
 	lines := strings.Split(data, "\n")
 
-	var dataObject [][]int
+	var dataObject ParsedFile
 
 	for i := 0; i < len(lines); i++ {
 		if lines[i] == "" {
@@ -21,10 +24,10 @@ func createDataObject(data string) [][]int {
 
 		coordinates := strings.Split(lines[i], coordinatesDivisor)
 
-		var coordLine []int
+		var coordLine []float32
 		for _, v := range coordinates {
-			num, _ := strconv.Atoi(v)
-			coordLine = append(coordLine, num)
+			num, _ := strconv.ParseFloat(v, 32)
+			coordLine = append(coordLine, float32(num))
 		}
 
 		dataObject = append(dataObject, coordLine)
@@ -34,7 +37,7 @@ func createDataObject(data string) [][]int {
 }
 
 // ParseFile parses the informed file and creates the data object from the file
-func ParseFile(filename string) interface{} {
+func ParseFile(filename string) ParsedFile {
 	data, err := ioutil.ReadFile(filename)
 
 	if err != nil {

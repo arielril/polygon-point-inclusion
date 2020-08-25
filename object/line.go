@@ -1,5 +1,7 @@
 package object
 
+import "github.com/go-gl/gl/v2.1/gl"
+
 type line struct {
 	P1, P2 Point
 }
@@ -8,6 +10,7 @@ type line struct {
 type Line interface {
 	Intersect2D(l Line) bool
 	Raw() *line
+	Draw()
 }
 
 // NewLine creates a new line from two points
@@ -69,4 +72,16 @@ func (l *line) Intersect2D(l1 Line) bool {
 	}
 
 	return false
+}
+
+func (l *line) Draw() {
+	gl.PushMatrix()
+	{
+		p1r := l.P1.Raw()
+		p2r := l.P2.Raw()
+
+		gl.Vertex2f(p1r.X, p1r.Y)
+		gl.Vertex2f(p2r.X, p2r.Y)
+	}
+	gl.PopMatrix()
 }

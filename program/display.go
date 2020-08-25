@@ -3,11 +3,8 @@ package program
 import (
 	"fmt"
 
-	"github.com/arielril/basic-go-gl/util"
 	"github.com/go-gl/gl/v2.1/gl"
 )
-
-var fps util.FPS
 
 func displayFps() {
 	acc := fps.SetFPS().GetAccumulated()
@@ -29,6 +26,24 @@ func displayLine() {
 		gl.Vertex2d(10, 10)
 
 		gl.End()
+	}
+	gl.PopMatrix()
+}
+
+func displayFileObject() {
+	gl.PushMatrix()
+	{
+		gl.Color3f(1, 0, 1)
+		gl.LineWidth(5)
+
+		objLines := fileObject.GetLines()
+
+		gl.Begin(gl.LINES)
+		for _, l := range objLines {
+			l.Draw()
+		}
+		gl.End()
+
 	}
 	gl.PopMatrix()
 }

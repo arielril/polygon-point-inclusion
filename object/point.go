@@ -1,6 +1,10 @@
 package object
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/go-gl/gl/v2.1/gl"
+)
 
 type point struct {
 	X, Y, Z float32
@@ -9,6 +13,7 @@ type point struct {
 // Point interface
 type Point interface {
 	Raw() *point
+	Draw()
 }
 
 func newPoint(x, y, z float32) Point {
@@ -31,4 +36,14 @@ func (p *point) String() string {
 // Raw returns the raw values from the point
 func (p *point) Raw() *point {
 	return p
+}
+
+// Draw draws the point in the OpenGL window
+func (p *point) Draw() {
+	gl.PushMatrix()
+	{
+		pr := p.Raw()
+		gl.Vertex2f(pr.X, pr.Y)
+	}
+	gl.PopMatrix()
 }
