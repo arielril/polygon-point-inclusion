@@ -11,6 +11,7 @@ import (
 
 var fps util.FPS
 var fileObject object.Polygon
+var randomPoints []object.Point
 
 // Init the game
 func Init() {
@@ -18,11 +19,13 @@ func Init() {
 	fps = util.NewFps()
 	parsedFile := util.ParseFile("./files/polygon1.txt")
 	fileObject = object.NewObjectFromFile(parsedFile)
+	randomPoints = object.GenerateRandomPoints(20)
 }
 
 // Display the game
 func Display(w *glfw.Window) {
-	displayFps()
 	// displayLine()
+	// displayFps()
+	displayRandomPoints()
 	displayFileObject()
 }

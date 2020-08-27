@@ -47,3 +47,20 @@ func displayFileObject() {
 	}
 	gl.PopMatrix()
 }
+
+func displayRandomPoints() {
+	gl.PushMatrix()
+	{
+		gl.Color3f(1, 0, 0)
+		gl.PointSize(20)
+
+		gl.Begin(gl.POINTS)
+
+		for _, p := range randomPoints {
+			p.Draw()
+		}
+
+		gl.End()
+	}
+	gl.PopMatrix()
+}

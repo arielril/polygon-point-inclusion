@@ -2,6 +2,7 @@ package object
 
 import (
 	"fmt"
+	"math/rand"
 
 	"github.com/go-gl/gl/v2.1/gl"
 )
@@ -46,4 +47,18 @@ func (p *point) Draw() {
 		gl.Vertex2f(pr.X, pr.Y)
 	}
 	gl.PopMatrix()
+}
+
+// GenerateRandomPoints create a list of random points
+func GenerateRandomPoints(n int) []Point {
+	list := make([]Point, 0)
+
+	for i := 0; i < n; i++ {
+		x := float32(rand.Intn(10))
+		y := float32(rand.Intn(10))
+
+		list = append(list, NewPoint2D(x, y))
+	}
+
+	return list
 }
