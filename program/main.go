@@ -12,6 +12,7 @@ import (
 var fps util.FPS
 var fileObject object.Polygon
 var randomPoints []object.Point
+var stripes []object.Line
 
 // Init the game
 func Init() {
@@ -20,12 +21,42 @@ func Init() {
 	parsedFile := util.ParseFile("./files/polygon1.txt")
 	fileObject = object.NewObjectFromFile(parsedFile)
 	randomPoints = object.GenerateRandomPoints(20)
+
+	stripes = createStripes()
+
+	setPointsToStripes(randomPoints, stripes)
+}
+
+func setPointsToStripes(rndPoints []object.Point, stripeList []object.Line) {
+	for _, p := range rndPoints {
+		for _, s := range stripeList {
+			fmt.Printf("point > %v\nstripe > %v\n", p, s)
+		}
+	}
+}
+
+func createStripes() []object.Line {
+	const minY = 0
+	const maxY = 10
+
+	nStripes := make([]object.Line, maxY+1)
+
+	for i := minY; i <= maxY; i++ {
+		p1 := object.NewPoint2D(0, float32(i))
+		p2 := object.NewPoint2D(10, float32(i))
+		line := object.NewLine(p1, p2)
+
+		nStripes[i] = line
+	}
+
+	return nStripes
 }
 
 // Display the game
 func Display(w *glfw.Window) {
 	// displayLine()
 	// displayFps()
+	displayStripes()
 	displayRandomPoints()
 	displayFileObject()
 }

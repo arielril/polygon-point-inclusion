@@ -64,3 +64,24 @@ func displayRandomPoints() {
 	}
 	gl.PopMatrix()
 }
+
+func displayStripes() {
+	if stripes == nil {
+		return
+	}
+
+	gl.PushMatrix()
+	{
+		gl.Color3f(0, 1, 1)
+		gl.LineWidth(3)
+
+		gl.Begin(gl.LINES)
+
+		for _, s := range stripes {
+			s.Draw()
+		}
+
+		gl.End()
+	}
+	gl.PopMatrix()
+}

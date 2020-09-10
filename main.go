@@ -36,6 +36,14 @@ func main() {
 
 	opengl.Setup()
 	program.Init()
+
+	/*
+		1. Create base polygon
+		2. Run brute force algorithm
+		3. Create Convex Hull polygon
+		4. Run the other algorithm
+	*/
+
 	for !win.ShouldClose() {
 		opengl.Reshape(win)
 		program.Display(win)
