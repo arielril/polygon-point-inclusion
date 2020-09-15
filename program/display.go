@@ -85,3 +85,21 @@ func displayStripes() {
 	}
 	gl.PopMatrix()
 }
+
+func displayConvexHull() {
+	gl.PushMatrix()
+	{
+		gl.Color3f(0.80, 0.27, 0.00)
+		gl.LineWidth(4)
+
+		objLines := convexHull.GetLines()
+		gl.Begin(gl.LINES)
+
+		for _, l := range objLines {
+			l.Draw()
+		}
+
+		gl.End()
+	}
+	gl.PopMatrix()
+}

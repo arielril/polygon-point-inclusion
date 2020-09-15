@@ -3,6 +3,7 @@ package program
 import (
 	"fmt"
 
+	"github.com/arielril/basic-go-gl/algorithm"
 	"github.com/arielril/basic-go-gl/object"
 	"github.com/arielril/basic-go-gl/util"
 
@@ -13,6 +14,7 @@ var fps util.FPS
 var fileObject object.Polygon
 var randomPoints []object.Point
 var stripes []object.Line
+var convexHull object.Polygon
 
 // Init the game
 func Init() {
@@ -23,8 +25,11 @@ func Init() {
 	randomPoints = object.GenerateRandomPoints(20)
 
 	stripes = createStripes()
-
 	setPointsToStripes(randomPoints, stripes)
+
+	convexHull = object.NewPolygonFromPoints(
+		algorithm.NewConvexHull(fileObject.GetPoints()),
+	)
 }
 
 func setPointsToStripes(rndPoints []object.Point, stripeList []object.Line) {
@@ -59,4 +64,5 @@ func Display(w *glfw.Window) {
 	displayStripes()
 	displayRandomPoints()
 	displayFileObject()
+	displayConvexHull()
 }

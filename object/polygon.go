@@ -50,3 +50,14 @@ func (p *polygon) GetPoints() []Point {
 func (p *polygon) GetLines() []Line {
 	return p.lines
 }
+
+// NewPolygonFromPoints create that
+func NewPolygonFromPoints(ps []Point) Polygon {
+	poly := &polygon{
+		points: ps,
+	}
+
+	createPolygonLines(poly)
+
+	return poly
+}
