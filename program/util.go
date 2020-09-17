@@ -1,6 +1,6 @@
 package program
 
-import "github.com/arielril/basic-go-gl/object"
+import "github.com/arielril/polygon-point-inclusion/object"
 
 func isLinePointsInsideStripe(l object.Line, s object.Stripe) bool {
 	lp1 := l.Raw().P1.Raw()
@@ -68,4 +68,9 @@ func createStripes() []object.Stripe {
 	}
 
 	return stripeList
+}
+
+// SetRunningBenchmark that
+func SetRunningBenchmark(b bool) {
+	runningBenchmark = b
 }

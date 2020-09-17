@@ -3,8 +3,12 @@ package program
 import (
 	"fmt"
 
+	"github.com/arielril/polygon-point-inclusion/object"
 	"github.com/go-gl/gl/v2.1/gl"
+	"github.com/go-gl/glfw/v3.3/glfw"
 )
+
+var runningBenchmark bool = false
 
 func displayFps() {
 	acc := fps.SetFPS().GetAccumulated()
@@ -51,16 +55,24 @@ func displayFileObject() {
 func displayRandomPoints() {
 	gl.PushMatrix()
 	{
-		gl.Color3f(1, 0, 0)
-		gl.PointSize(20)
-
-		gl.Begin(gl.POINTS)
-
 		for _, p := range randomPoints {
-			p.Draw()
-		}
+			if p.Raw().Inside {
+				if p.Raw().Where == object.PointWhere.Polygon {
+					gl.Color3f(0, 0, 1)
+				} else if p.Raw().Where == object.PointWhere.ConvexHull {
+					gl.Color3f(0.90, 0.90, 0.00)
+				}
+			} else {
+				gl.Color3f(1, 0, 0)
+			}
+			gl.PointSize(13)
 
-		gl.End()
+			gl.Begin(gl.POINTS)
+
+			p.Draw()
+
+			gl.End()
+		}
 	}
 	gl.PopMatrix()
 }
@@ -102,4 +114,23 @@ func displayConvexHull() {
 		gl.End()
 	}
 	gl.PopMatrix()
+}
+
+// Display the game
+func Display(w *glfw.Window) {
+	gl.Clear(gl.COLOR_BUFFER_BIT)
+	gl.MatrixMode(gl.MODELVIEW)
+	gl.LoadIdentity()
+
+	if !runningBenchmark {
+		// displayLine()
+		// displayFps()
+		displayStripes()
+		displayRandomPoints()
+		displayFileObject()
+		displayConvexHull()
+	} else {
+		RunBenchmark()
+		SetRunningBenchmark(false)
+	}
 }

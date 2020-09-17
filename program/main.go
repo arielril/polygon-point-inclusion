@@ -3,11 +3,9 @@ package program
 import (
 	"fmt"
 
-	"github.com/arielril/basic-go-gl/algorithm"
-	"github.com/arielril/basic-go-gl/object"
-	"github.com/arielril/basic-go-gl/util"
-
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/arielril/polygon-point-inclusion/algorithm"
+	"github.com/arielril/polygon-point-inclusion/object"
+	"github.com/arielril/polygon-point-inclusion/util"
 )
 
 const stripeMinY = 0
@@ -25,7 +23,7 @@ func Init() {
 	fps = util.NewFps()
 	parsedFile := util.ParseFile("./files/polygon1.txt")
 	fileObject = object.NewObjectFromFile(parsedFile)
-	randomPoints = object.GenerateRandomPoints(20)
+	randomPoints = object.GenerateRandomPoints(200)
 
 	stripes = createStripes()
 	setEdgeToStripes(fileObject.GetLines(), stripes)
@@ -33,14 +31,8 @@ func Init() {
 	convexHull = object.NewPolygonFromPoints(
 		algorithm.NewConvexHull(fileObject.GetPoints()),
 	)
-}
 
-// Display the game
-func Display(w *glfw.Window) {
-	// displayLine()
-	// displayFps()
-	displayStripes()
-	displayRandomPoints()
-	displayFileObject()
-	displayConvexHull()
+	// show the initial colors of the points
+	algorithm.RunConvexHull(randomPoints, convexHull)
+	algorithm.RunBruteForce(randomPoints, fileObject.GetLines())
 }

@@ -3,7 +3,7 @@ package algorithm
 import (
 	"fmt"
 
-	"github.com/arielril/basic-go-gl/object"
+	"github.com/arielril/polygon-point-inclusion/object"
 )
 
 //https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
@@ -89,4 +89,45 @@ func NewConvexHull(points []object.Point) []object.Point {
 	}
 
 	return hullPoints
+}
+
+// RunConvexHull returns the quantity of calls to orientation function
+func RunConvexHull(points []object.Point, hull object.Polygon) int {
+	calls := 0
+
+	for _, point := range points {
+		check := isPointInsideConvexHull(point, hull)
+		calls += check.CallsToOrientation
+		if check.Inside {
+			point.SetInside(object.PointWhere.ConvexHull)
+		}
+	}
+
+	return calls
+}
+
+type pointInsideResult struct {
+	Inside             bool
+	CallsToOrientation int
+}
+
+// IsPointInsideConvexHull do that
+func isPointInsideConvexHull(point object.Point, hull object.Polygon) *pointInsideResult {
+	result := &pointInsideResult{
+		Inside:             false,
+		CallsToOrientation: 0,
+	}
+
+	for _, line := range hull.GetLines() {
+		lp1 := line.Raw().P1
+		lp2 := line.Raw().P2
+
+		result.CallsToOrientation++
+		if orientation(lp1, lp2, point) == "CLOCKWISE" {
+			return result
+		}
+	}
+
+	result.Inside = true
+	return result
 }

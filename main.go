@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/arielril/basic-go-gl/opengl"
-	"github.com/arielril/basic-go-gl/program"
+	"github.com/arielril/polygon-point-inclusion/opengl"
+	"github.com/arielril/polygon-point-inclusion/program"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )

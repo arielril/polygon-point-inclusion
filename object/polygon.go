@@ -1,6 +1,6 @@
 package object
 
-import "github.com/arielril/basic-go-gl/util"
+import "github.com/arielril/polygon-point-inclusion/util"
 
 // Polygon interface
 type Polygon interface {

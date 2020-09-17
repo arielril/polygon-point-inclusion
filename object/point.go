@@ -3,25 +3,43 @@ package object
 import (
 	"fmt"
 	"math/rand"
+	"time"
 
 	"github.com/go-gl/gl/v2.1/gl"
 )
 
+var rnd *rand.Rand = rand.New(
+	rand.NewSource(time.Now().UnixNano()),
+)
+
 type point struct {
 	X, Y, Z float32
+	Inside  bool
+	Where   string // POLYGON | CONVEX_HULL
 }
 
 // Point interface
 type Point interface {
 	Raw() *point
 	Draw()
+	SetInside(where string) Point
+}
+
+// PointWhere is where is the point
+var PointWhere = &struct {
+	Polygon, ConvexHull string
+}{
+	Polygon:    "POLYGON",
+	ConvexHull: "CONVEX_HULL",
 }
 
 func newPoint(x, y, z float32) Point {
 	return &point{
-		X: x,
-		Y: y,
-		Z: z,
+		X:      x,
+		Y:      y,
+		Z:      z,
+		Inside: false,
+		Where:  "",
 	}
 }
 
@@ -49,16 +67,14 @@ func (p *point) Draw() {
 	gl.PopMatrix()
 }
 
-// GenerateRandomPoints create a list of random points
-func GenerateRandomPoints(n int) []Point {
-	list := make([]Point, 0)
-
-	for i := 0; i < n; i++ {
-		x := float32(rand.Intn(10))
-		y := float32(rand.Intn(10))
-
-		list = append(list, NewPoint2D(x, y))
+func (p *point) SetInside(where string) Point {
+	if where == "" {
+		p.Inside = false
+		p.Where = ""
+	} else {
+		p.Inside = true
+		p.Where = where
 	}
 
-	return list
+	return p
 }

@@ -3,6 +3,7 @@ package opengl
 import (
 	"fmt"
 
+	"github.com/arielril/polygon-point-inclusion/program"
 	"github.com/go-gl/gl/v2.1/gl"
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -35,6 +36,8 @@ func CharCallback(w *glfw.Window, char rune) {
 	case 'q':
 		w.SetShouldClose(true)
 		break
+	case 'b':
+		program.SetRunningBenchmark(true)
 	}
 }
 
