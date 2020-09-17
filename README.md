@@ -21,6 +21,6 @@ To execute this example program you can use the `make run` command, it will buil
 
 ## Result
 
-TBD.
+To execute the benchmark functionality you must press `b`.
 
 You can press `q` or `ESC` to quit the program.
